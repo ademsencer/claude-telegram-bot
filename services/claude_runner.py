@@ -74,8 +74,9 @@ class ClaudeRunner:
 
         env = {
             "ANTHROPIC_API_KEY": Config.ANTHROPIC_API_KEY,
-            "HOME": "/root",
+            "HOME": "/home/botuser",
             "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+            "USER": "botuser",
         }
 
         logger.info(f"Claude baslatiliyor: cwd={cwd}, prompt={prompt[:80]}...")

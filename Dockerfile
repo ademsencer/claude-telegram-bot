@@ -15,15 +15,19 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Non-root kullanici olustur (Claude Code root ile --dangerously-skip-permissions izin vermiyor)
+RUN useradd -m -s /bin/bash botuser \
+    && mkdir -p /workspace /app /home/botuser/.claude \
+    && chown -R botuser:botuser /workspace /app /home/botuser
+
 # Uygulama kodu
-COPY . .
+COPY --chown=botuser:botuser . .
 
-# Workspace dizini (projeler buraya klonlanir)
-RUN mkdir -p /workspace
-
-# Git konfigurasyonu (container icinde)
+# Git konfigurasyonu
 RUN git config --global user.email "bot@claude-telegram.local" \
     && git config --global user.name "Claude Bot"
+
+USER botuser
 
 HEALTHCHECK --interval=60s --timeout=10s --retries=3 \
     CMD python -c "import urllib.request; urllib.request.urlopen('https://api.telegram.org')"
