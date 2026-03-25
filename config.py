@@ -23,6 +23,9 @@ class Config:
     # Workspace
     WORKSPACE_DIR: str = os.getenv("WORKSPACE_DIR", "/workspace")
 
+    # Kisayollar
+    SHORTCUTS_FILE: str = os.getenv("SHORTCUTS_FILE", "/app/shortcuts.json")
+
     # Monitoring
     VPN_CHECK_INTERVAL: int = int(os.getenv("VPN_CHECK_INTERVAL", "30"))
     WIFI_CHECK_INTERVAL: int = int(os.getenv("WIFI_CHECK_INTERVAL", "60"))
