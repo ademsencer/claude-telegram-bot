@@ -1,0 +1,21 @@
+services:
+  bot:
+    build: .
+    image: ghcr.io/ademsencer/claude-telegram-bot:latest
+    container_name: claude-telegram-bot
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - workspace:/workspace
+      - claude-config:/root/.claude
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  workspace:
+    name: claude-bot-workspace
+  claude-config:
+    name: claude-bot-config
